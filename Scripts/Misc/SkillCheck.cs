@@ -361,6 +361,8 @@ namespace Server.Misc
             Gain(from, skill, (int)(from.Region.SkillGain(from) * 10));
         }
 
+		private const int MinSkillGainMultiplier = 15;
+		private const int MaxSkillGainMultiplier = 20;
         public static void Gain(Mobile from, Skill skill, int toGain)
 		{
 			if (from.Region.IsPartOf<Jail>())
@@ -397,7 +399,7 @@ namespace Server.Misc
 					}
 				}
 
-				if (toGain == 1 && skill.Base <= 10.0)
+				if (toGain == 1 && skill.Base <= 40.0)
 					toGain = Utility.Random(4) + 1;
 
 				#region Mondain's Legacy
@@ -435,6 +437,8 @@ namespace Server.Misc
 					}
 				}
 				#endregion
+
+				toGain *= Utility.RandomMinMax(MinSkillGainMultiplier, MaxSkillGainMultiplier);
 
 				if (from is PlayerMobile)
 				{
