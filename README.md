@@ -48,6 +48,10 @@ make
 4. Run `ServUO.exe` to make sure everything boots up, if everything went well, you should see your IP adress being listened on the port you specified.
 5. Load up UO and login! - If you require instructions on setting up your particular client, visit the Discord and ask!
 
+#### Generate world
+
+To generate the world use an admin account and run in-game the command `[createworld`
+
 
 
    [ServUO]: <https://www.servuo.com>

@@ -1019,11 +1019,11 @@ namespace Server
 			UpdateResistances();
 		}
 
-		private static int m_MinPlayerResistance = -70;
+		private static int m_MinPlayerResistance = -50;
 
 		public static int MinPlayerResistance { get { return m_MinPlayerResistance; } set { m_MinPlayerResistance = value; } }
 
-		private static int m_MaxPlayerResistance = 70;
+		private static int m_MaxPlayerResistance = 95;
 
 		public static int MaxPlayerResistance { get { return m_MaxPlayerResistance; } set { m_MaxPlayerResistance = value; } }
 
