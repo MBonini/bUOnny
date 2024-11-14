@@ -717,46 +717,10 @@ namespace Server.Items
 
 		public static TimeSpan GetDelay(Mobile healer, Mobile patient, bool dead, SkillName skill)
 		{
-			var resDelay = dead ? 5.0 : 0.0;
-
-			var dex = healer.Dex;
-
-            double seconds;
-
-			if (healer == patient)
-            {
-                if (Core.AOS)
-                {
-                    seconds = Math.Min(8, Math.Ceiling(11.0 - dex / 20));
-                    seconds = Math.Max(seconds, 4);
-                }
-                else
-                {
-                    seconds = 9.4 + (0.6 * ((double)(120 - dex) / 10));
-                }
-            }
-            else if (Core.AOS && skill == SkillName.Veterinary)
-            {
-                seconds = 2.0;
-            }
-            else if (Core.AOS)
-            {
-                seconds = Math.Ceiling((double)4 - dex / 60);
-                seconds = Math.Max(seconds, 2);
-            }
-            else if (dex >= 100)
-            {
-                seconds = 3.0 + resDelay;
-            }
-            else if (dex >= 40)
-            {
-                seconds = 4.0 + resDelay;
-            }
-            else
-            {
-                seconds = 5.0 + resDelay;
-            }
+			double seconds = Math.Ceiling(10.0 - (healer.Dex / 20));
+			seconds = Math.Max(seconds, 0);
 			
+			seconds += dead ? 2.0 : 0.0;
 			return TimeSpan.FromSeconds(seconds);
 		}
 	}
