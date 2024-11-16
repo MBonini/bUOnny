@@ -717,8 +717,8 @@ namespace Server.Spells
             } 
         }
 
-		public virtual bool BlockedByAnimalForm { get { return true; } }
-		public virtual bool BlocksMovement { get { return true; } }
+		public virtual bool BlockedByAnimalForm { get { return false; } }
+		public virtual bool BlocksMovement { get { return false; } }
 
 		public virtual bool CheckNextSpellTime { get { return !(m_Scroll is BaseWand); } }
 
@@ -964,12 +964,12 @@ namespace Server.Spells
                 scalar += .5;
             }
 
-			// Lower Mana Cost = 40%
+			// Lower Mana Cost = 95%
 			int lmc = AosAttributes.GetValue(m_Caster, AosAttribute.LowerManaCost);
 
-			if (lmc > 40)
+			if (lmc > 95)
 			{
-				lmc = 40;
+				lmc = 95;
 			}
 
             lmc += BaseArmor.GetInherentLowerManaCost(m_Caster);
