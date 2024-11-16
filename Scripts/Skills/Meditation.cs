@@ -81,23 +81,18 @@ namespace Server.SkillHandlers
                 // must bypass normal checks so passive skill checks aren't triggered
                 CrystalBallOfKnowledge.TellSkillDifficultyActive(m, SkillName.Meditation, chance);
 
-                if (chance > Utility.RandomDouble())
-                {
-                    m.CheckSkill(SkillName.Meditation, 0.0, 100.0);
+				{
+					m.CheckSkill(SkillName.Meditation, 0.0, 100.0);
 
-                    m.SendLocalizedMessage(501851); // You enter a meditative trance.
-                    m.Meditating = true;
-                    BuffInfo.AddBuff(m, new BuffInfo(BuffIcon.ActiveMeditation, 1075657));
+					m.SendLocalizedMessage(501851); // You enter a meditative trance.
+					m.Meditating = true;
+					BuffInfo.AddBuff(m, new BuffInfo(BuffIcon.ActiveMeditation, 1075657));
 
-                    if (m.Player || m.Body.IsHuman)
-                        m.PlaySound(0xF9);
+					if (m.Player || m.Body.IsHuman)
+						m.PlaySound(0xF9);
 
-                    m.ResetStatTimers();
-                }
-                else 
-                {
-                    m.SendLocalizedMessage(501850); // You cannot focus your concentration.
-                }
+					m.ResetStatTimers();
+				}
 
                 return TimeSpan.FromSeconds(10.0);
             }

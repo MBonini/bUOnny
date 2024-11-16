@@ -118,84 +118,31 @@ namespace Server.Misc
             double rate;
             double armorPenalty = GetArmorOffset(from);
 
-            if (Core.ML)
             {
-                double med = from.Skills[SkillName.Meditation].Value;
-                double focus = from.Skills[SkillName.Focus].Value;
-
-                double focusBonus = focus / 200;
-                double medBonus = 0;
-
-                CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Focus);
-
-                if (armorPenalty == 0)
-                {
-                    medBonus = (0.0075 * med) + (0.0025 * from.Int);
-
-                    if (medBonus >= 100.0)
-                        medBonus *= 1.1;
-
-                    if (from.Meditating)
-                    {
-                        medBonus *= 2;
-                    }
-                }
-
-                double itemBase = ((((med / 2) + (focus / 4)) / 90) * .65) + 2.35;
-                double intensityBonus = Math.Sqrt(ManaRegen(from));
-
-                if (intensityBonus > 5.5)
-                    intensityBonus = 5.5;
-
-                double itemBonus = ((itemBase * intensityBonus) - (itemBase - 1)) / 10;
-
-                rate = 1.0 / (0.2 + focusBonus + medBonus + itemBonus);
-            }
-            else if (Core.AOS)
-            {
-                double medPoints = from.Int + (from.Skills[SkillName.Meditation].Value * 3);
-
-                medPoints *= (from.Skills[SkillName.Meditation].Value < 100.0) ? 0.025 : 0.0275;
-
-                CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Focus);
-
-                double focusPoints = (from.Skills[SkillName.Focus].Value * 0.05);
-
-                if (armorPenalty > 0)
-                    medPoints = 0; // In AOS, wearing any meditation-blocking armor completely removes meditation bonus
-
-                double totalPoints = focusPoints + medPoints + (from.Meditating ? (medPoints > 13.0 ? 13.0 : medPoints) : 0.0);
-
-                totalPoints += ManaRegen(from);
-
-                if (totalPoints < -1)
-                    totalPoints = -1;
-
-                if (Core.ML)
-                    totalPoints = Math.Floor(totalPoints);
-
-                rate = 1.0 / (0.1 * (2 + totalPoints));
-            }
-            else
-            {
-                double medPoints = (from.Int + from.Skills[SkillName.Meditation].Value) * 0.5;
-
-                if (medPoints <= 0)
-                    rate = 7.0;
-                else if (medPoints <= 100)
-                    rate = 7.0 - (239 * medPoints / 2400) + (19 * medPoints * medPoints / 48000);
-                else if (medPoints < 120)
-                    rate = 1.0;
-                else
-                    rate = 0.75;
+				{
+					// E.g.: Int 250 + Meditation 100 + ManaRegen 0 = 350
+					// E.g.: Int 350 + Meditation 120 + ManaRegen 6 = 530
+					double medPoints = from.Int + from.Skills[SkillName.Meditation].Value + (ManaRegen(from) * 10);
+					
+					// Formula obtained by: https://www.dcode.fr/function-equation-finder
+					// Formula plot by: https://www.desmos.com/calculator
+					// (0, 7.0), (350, 1.0) => 7 - 3x/175
+					// (350, 1.0), (1000, 0.0) => 20/13 - x/650
+					if (medPoints <= 350)
+						rate = 7.0 - (3 * medPoints / 175);
+					else if (medPoints < 1000)
+						rate = (20.0/13.0) - (medPoints / 650);
+					else
+						rate = 0.0;
+				}
 
                 rate += armorPenalty;
 
                 if (from.Meditating)
-                    rate *= 0.5;
+                    rate *= 0.25;
 
-                if (rate < 0.5)
-                    rate = 0.5;
+                if (rate < 0.0)
+                    rate = 0.0;
                 else if (rate > 7.0)
                     rate = 7.0;
             }
@@ -285,9 +232,6 @@ namespace Server.Misc
 
             if (from is PlayerMobile && from.Race == Race.Gargoyle)
                 points += 2;
-
-            if (!Core.ML && from is PlayerMobile)
-                points = Math.Min(points, 18);
 
             foreach (RegenBonusHandler handler in ManaBonusHandlers)
                 points += handler(from);
