@@ -325,31 +325,6 @@ namespace Server.Mobiles
 
         public virtual void OnRestock()
         {
-            if (m_Amount <= 0)
-            {
-                m_MaxAmount *= 2;
-
-                if (m_MaxAmount >= 999)
-                    m_MaxAmount = 999;
-            }
-            else
-            {
-                /* NOTE: According to UO.com, the quantity is halved if the item does not reach 0
-                * Here we implement differently: the quantity is halved only if less than half
-                * of the maximum quantity was bought. That is, if more than half is sold, then
-                * there's clearly a demand and we should not cut down on the stock.
-                */
-                int halfQuantity = m_MaxAmount;
-
-                if (halfQuantity >= 999)
-                    halfQuantity = 640;
-                else if (halfQuantity > 20)
-                    halfQuantity /= 2;
-
-                if (m_Amount >= halfQuantity)
-                    m_MaxAmount = halfQuantity;
-            }
-
             m_Amount = m_MaxAmount;
         }
 
