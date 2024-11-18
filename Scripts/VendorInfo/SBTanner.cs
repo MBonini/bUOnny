@@ -54,10 +54,15 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(StuddedBustierArms), 50, 20, 0x1C0C, 0));
                 Add(new GenericBuyInfo(typeof(StuddedBustierArms), 47, 20, 0x1C0D, 0));
 
-                Add(new GenericBuyInfo(typeof(Bag), 6, 20, 0xE76, 0));
-                Add(new GenericBuyInfo(typeof(Pouch), 6, 20, 0xE79, 0));
-                Add(new GenericBuyInfo(typeof(Backpack), 15, 20, 0x9B2, 0));
-                Add(new GenericBuyInfo(typeof(Leather), 6, 20, 0x1081, 0, true));
+                Add(new GenericBuyInfo(typeof(Bag), 6, 999, 0xE76, 0));
+                Add(new GenericBuyInfo(typeof(Pouch), 6, 999, 0xE79, 0));
+                Add(new GenericBuyInfo(typeof(Backpack), 15, 999, 0x9B2, 0));
+                {
+					Add(new GenericBuyInfo(typeof(Leather), 6, 999, 0x1081, 0, true));
+					Add(new GenericBuyInfo(typeof(SpinedLeather), 12, 999, 0x1081, 2220, true));
+					Add(new GenericBuyInfo(typeof(HornedLeather), 18, 999, 0x1081, 2117, true));
+					Add(new GenericBuyInfo(typeof(BarbedLeather), 24, 999, 0x1081, 2129, true));
+				}
 
                 Add(new GenericBuyInfo(typeof(SkinningKnife), 15, 20, 0xEC4, 0));
 
@@ -73,7 +78,12 @@ namespace Server.Mobiles
                 Add(typeof(Pouch), 3);
                 Add(typeof(Backpack), 7);
 
-                Add(typeof(Leather), 5);
+                {
+					Add(typeof(Leather), 5);
+					Add(typeof(SpinedLeather), 10);
+					Add(typeof(HornedLeather), 15);
+					Add(typeof(BarbedLeather), 20);
+				}
 
                 Add(typeof(SkinningKnife), 7);
 				
