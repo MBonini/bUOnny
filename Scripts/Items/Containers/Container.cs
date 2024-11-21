@@ -457,7 +457,7 @@ namespace Server.Items
                     Mobile m = ParentEntity as Mobile;
                     if (m != null && m.Player && m.Backpack == this)
                     {
-                        return 550;
+                        return 5500;
                     }
                     else
                     {
