@@ -12173,6 +12173,7 @@
     <Compile Include="Targets\PickMoveTarget.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Bonny\DeedOfRepair.cs" />
     <Compile Include="VendorInfo\AnimalBuy.cs" />
     <Compile Include="VendorInfo\BeverageBuy.cs" />
     <Compile Include="VendorInfo\GenericBuy.cs" />
