@@ -36,7 +36,10 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(Torch), 8, 20, 0xF6B, 0));
                 Add(new GenericBuyInfo(typeof(Lantern), 2, 20, 0xA25, 0));
                 //Add( new GenericBuyInfo( typeof( OilFlask ), 8, 20, 0x####, 0 ) );
-                Add(new GenericBuyInfo(typeof(Lockpick), 12, 20, 0x14FC, 0, true));
+
+                Add(new GenericBuyInfo(typeof(Lockpick), 12, 999, 0x14FC, 0, true));
+                Add(new GenericBuyInfo(typeof(LockpickingChest), 100, 20, 0x9AA, 0x0497));
+
                 Add(new GenericBuyInfo(typeof(WoodenBox), 14, 20, 0x9AA, 0));
                 Add(new GenericBuyInfo(typeof(Key), 2, 20, 0x100E, 0));
                 Add(new GenericBuyInfo(typeof(HairDye), 37, 20, 0xEFF, 0));
