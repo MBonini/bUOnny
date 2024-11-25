@@ -76,6 +76,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bonny\LockpickingChest.cs" />
+    <Compile Include="Bonny\Utils.cs" />
     <Compile Include="Commands\AccountGoldCheck.cs" />
     <Compile Include="Commands\Add.cs">
       <SubType>Code</SubType>
