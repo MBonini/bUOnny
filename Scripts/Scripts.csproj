@@ -75,6 +75,7 @@
     <Compile Include="Accounting\IPLimiter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Bonny\BagOfHolding.cs" />
     <Compile Include="Bonny\LockpickingChest.cs" />
     <Compile Include="Bonny\Utils.cs" />
     <Compile Include="Commands\AccountGoldCheck.cs" />

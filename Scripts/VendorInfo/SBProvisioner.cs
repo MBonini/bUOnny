@@ -41,6 +41,7 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(Backpack), 15, 20, 0x9B2, 0));
                 Add(new GenericBuyInfo(typeof(Pouch), 6, 20, 0xE79, 0));
                 Add(new GenericBuyInfo(typeof(Bag), 6, 20, 0xE76, 0));
+                Add(new GenericBuyInfo(typeof(BagOfHolding), 1000, 20, 0xE76, 1923));
 
                 Add(new GenericBuyInfo(typeof(Candle), 6, 20, 0xA28, 0));
                 Add(new GenericBuyInfo(typeof(Torch), 8, 20, 0xF6B, 0));
