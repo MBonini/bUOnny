@@ -142,7 +142,7 @@ namespace Server.Spells
 
             return sdiBonus;
         }
-        #endregion 
+        #endregion
 
         private static readonly TimeSpan AosDamageDelay = TimeSpan.FromSeconds(1.0);
         private static readonly TimeSpan OldDamageDelay = TimeSpan.FromSeconds(0.5);
@@ -159,12 +159,12 @@ namespace Server.Spells
         {
             return CheckMulti(p, map, true, 0);
         }
-		
+
         public static bool CheckMulti(Point3D p, Map map, bool houses)
         {
             return CheckMulti(p, map, houses, 0);
         }
-		
+
         public static bool CheckMulti(Point3D p, Map map, bool houses, int housingrange)
         {
             if (map == null || map == Map.Internal)
@@ -188,7 +188,7 @@ namespace Server.Spells
                     return true;
                 }
             }
-			
+
             return false;
         }
 
@@ -297,17 +297,17 @@ namespace Server.Spells
 
             return true;
         }
-		
+
         public static bool CanRevealCaster(Mobile m)
         {
             if (m is BaseCreature)
             {
                 BaseCreature c = (BaseCreature)m;
-						
+
                 if (!c.Controlled)
                     return true;
             }
-			
+
             return false;
         }
 
@@ -335,7 +335,7 @@ namespace Server.Spells
 				return;
 			// This call has the side-effect of updating all stats
 			((Mobile)state).CheckStatTimers();
-		}			
+		}
 
         public static bool AddStatOffset(Mobile m, StatType type, int offset, TimeSpan duration)
         {
@@ -636,7 +636,7 @@ namespace Server.Spells
         }
 
         public static IEnumerable<IDamageable> AcquireIndirectTargets(Mobile caster, IPoint3D p, Map map, int range, bool losCheck)
-        {  
+        {
             if (map == null)
             {
                 yield break;
@@ -926,7 +926,7 @@ namespace Server.Spells
 
                 if ((int)type <= 4 && (IsNewDungeon(caster.Map, caster.Location) || IsNewDungeon(map, loc)))
                     isValid = false;
-                
+
                 #endregion
 
                 #region High Seas
@@ -940,6 +940,7 @@ namespace Server.Spells
             for (int i = 0; isValid && i < m_Validators.Length; ++i)
                 isValid = (m_Rules[v, i] || !m_Validators[i](map, loc));
 
+            isValid = true; // Suppress all maps/locations checks
             if (!isValid && caster != null)
                 SendInvalidMessage(caster, type);
 
@@ -1206,7 +1207,7 @@ namespace Server.Spells
 
             if (map == null)
                 return false;
-            
+
             GuardedRegion reg = (GuardedRegion)Region.Find(loc, map).GetRegion(typeof(GuardedRegion));
 
             return (reg != null && !reg.IsDisabled());

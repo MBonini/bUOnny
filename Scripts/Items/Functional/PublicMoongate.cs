@@ -17,7 +17,7 @@ namespace Server.Items
 	public class PublicMoongate : Item
 	{
 		public static List<PublicMoongate> Moongates { get; private set; }
-		
+
 		static PublicMoongate()
 		{
 			Moongates = new List<PublicMoongate>();
@@ -115,7 +115,7 @@ namespace Server.Items
 				}
 			}
 		}
-		
+
 		public override int LabelNumber {get {return 1023952;} } // Blue Moongate
 
 		public override bool HandlesOnMovement { get { return true; } }
@@ -184,32 +184,32 @@ namespace Server.Items
 				//Staff can always use a gate!
 				return true;
 			}
-			
+
 			if (m.Criminal)
 			{
 				// Thou'rt a criminal and cannot escape so easily.
-				m.SendLocalizedMessage(1005561, "", 0x22); 
+				m.SendLocalizedMessage(1005561, "", 0x22);
 				return false;
 			}
-			
+
 			if (SpellHelper.CheckCombat(m))
 			{
 				// Wouldst thou flee during the heat of battle??
-				m.SendLocalizedMessage(1005564, "", 0x22); 
+				m.SendLocalizedMessage(1005564, "", 0x22);
 				return false;
 			}
-			
+
 			if (m.Spell != null)
 			{
 				// You are too busy to do that at the moment.
-				m.SendLocalizedMessage(1049616); 
+				m.SendLocalizedMessage(1049616);
 				return false;
 			}
-			
+
 			if (m.Holding != null)
 			{
 				// You cannot teleport while dragging an object.
-				m.SendLocalizedMessage(1071955); 
+				m.SendLocalizedMessage(1071955);
 				return false;
 			}
 
@@ -222,7 +222,7 @@ namespace Server.Items
 			{
 				return false;
 			}
-            
+
 			m.CloseGump(typeof(MoongateGump));
 			m.SendGump(new MoongateGump(m, this));
 
@@ -545,27 +545,26 @@ namespace Server.Items
 				else
 				{
 					var flags = mobile.NetState == null ? ClientFlags.None : mobile.NetState.Flags;
-					var young = mobile is PlayerMobile && ((PlayerMobile)mobile).Young;
 
 					if (Core.SA && (flags & ClientFlags.TerMur) != 0)
 					{
-						checkLists = young ? PMList.SAListsYoung : PMList.SALists;
+						checkLists = PMList.SALists;
 					}
 					else if (Core.SE && (flags & ClientFlags.Tokuno) != 0)
 					{
-						checkLists = young ? PMList.SEListsYoung : PMList.SELists;
+						checkLists = PMList.SELists;
 					}
 					else if (Core.AOS && (flags & ClientFlags.Malas) != 0)
 					{
-						checkLists = young ? PMList.AOSListsYoung : PMList.AOSLists;
+						checkLists = PMList.AOSLists;
 					}
 					else if ((flags & ClientFlags.Ilshenar) != 0)
 					{
-						checkLists = young ? PMList.LBRListsYoung : PMList.LBRLists;
+						checkLists = PMList.LBRLists;
 					}
 					else
 					{
-						checkLists = young ? PMList.UORListsYoung : PMList.UORLists;
+						checkLists = PMList.UORLists;
 					}
 				}
 			}
