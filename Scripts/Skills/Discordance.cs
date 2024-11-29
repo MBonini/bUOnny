@@ -87,7 +87,7 @@ namespace Server.SkillHandlers
             }
             else
             {
-                // According to uoherald bard must remain alive, visible, and 
+                // According to uoherald bard must remain alive, visible, and
                 // within range of the target or the effect ends in 15 seconds.
                 if (!targ.Alive || targ.Deleted || targ.IsDeadBondedPet || !from.Alive || from.Hidden || targ.Hidden || from.IsDeadBondedPet)
                 {
@@ -158,7 +158,7 @@ namespace Server.SkillHandlers
 				{
 					Mobile targ = (Mobile)target;
 
-					if (targ == from || !from.CanBeHarmful(targ, false) || 
+					if (targ == from || !from.CanBeHarmful(targ, false) ||
                         (targ is BaseCreature && ((BaseCreature)targ).BardImmune && ((BaseCreature)targ).ControlMaster != from))
 					{
 						from.SendLocalizedMessage(1049535); // A song of discord would have no effect on that.
@@ -225,13 +225,7 @@ namespace Server.SkillHandlers
                                 {
                                     double discord = from.Skills[SkillName.Discordance].Value;
 
-                                    effect = (int)Math.Max(-28.0, (discord / -4.0));
-
-                                    if (Core.SE && BaseInstrument.GetBaseDifficulty(targ) >= 160.0)
-                                    {
-                                        effect /= 2;
-                                    }
-
+                                    effect = (int)(discord / -4.0);
                                     scalar = (double)effect / 100;
 
                                     mods.Add(new ResistanceMod(ResistanceType.Physical, effect));
@@ -250,7 +244,7 @@ namespace Server.SkillHandlers
                                 }
                                 else
                                 {
-                                    effect = (int)(from.Skills[SkillName.Discordance].Value / -5.0);
+                                    effect = (int)(from.Skills[SkillName.Discordance].Value / -4.0);
                                     scalar = effect * 0.01;
 
                                     mods.Add(new StatMod(StatType.Str, "DiscordanceStr", (int)(targ.RawStr * scalar), TimeSpan.Zero));
@@ -261,7 +255,7 @@ namespace Server.SkillHandlers
                                     {
                                         if (targ.Skills[i].Value > 0)
                                         {
-                                            mods.Add(new DefaultSkillMod((SkillName)i, true, Math.Max(100, targ.Skills[i].Value) * scalar));
+                                            mods.Add(new DefaultSkillMod((SkillName)i, true, targ.Skills[i].Value * scalar));
                                         }
                                     }
                                 }
@@ -301,7 +295,7 @@ namespace Server.SkillHandlers
 							m_Instrument.ConsumeUse(from);
 
                             from.NextSkillTime = Core.TickCount + 5000;
-                        }                        
+                        }
                     }
 					else
 					{
