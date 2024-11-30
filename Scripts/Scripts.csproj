@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="Bonny\BagOfHolding.cs" />
     <Compile Include="Bonny\Deeds\DeedOfRepair.cs" />
+    <Compile Include="Bonny\Deeds\DeedOfSpellChanneling.cs" />
     <Compile Include="Bonny\Deeds\DeedOfWeaponOneHand.cs" />
     <Compile Include="Bonny\LockpickingChest.cs" />
     <Compile Include="Bonny\Utils.cs" />

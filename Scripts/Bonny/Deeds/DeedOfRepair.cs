@@ -16,6 +16,7 @@ namespace Server.Items
             Name = "Deed of repair";
             Hue = 0x44E;
             Weight = 0.1;
+            LootType = LootType.Blessed;
         }
 
         public DeedOfRepair(Serial serial) : base(serial)
