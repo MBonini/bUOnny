@@ -32,6 +32,7 @@ namespace Server.Mobiles
             public InternalBuyInfo()
             {
                 Add(new GenericBuyInfo(typeof(DeedOfRepair), 50, 999, 0x14F0, 0x44E));
+                Add(new GenericBuyInfo(typeof(DeedOfWeaponOneHand), 100, 999, 0x14F0, 1161));
 
                 Add(new GenericBuyInfo(typeof(IronIngot), 5, 16, 0x1BF2, 0, true));
                 Add(new GenericBuyInfo(typeof(Tongs), 13, 14, 0xFBB, 0));

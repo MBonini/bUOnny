@@ -76,6 +76,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bonny\BagOfHolding.cs" />
+    <Compile Include="Bonny\Deeds\DeedOfRepair.cs" />
+    <Compile Include="Bonny\Deeds\DeedOfWeaponOneHand.cs" />
     <Compile Include="Bonny\LockpickingChest.cs" />
     <Compile Include="Bonny\Utils.cs" />
     <Compile Include="Commands\AccountGoldCheck.cs" />
@@ -12176,7 +12178,6 @@
     <Compile Include="Targets\PickMoveTarget.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bonny\DeedOfRepair.cs" />
     <Compile Include="VendorInfo\AnimalBuy.cs" />
     <Compile Include="VendorInfo\BeverageBuy.cs" />
     <Compile Include="VendorInfo\GenericBuy.cs" />
