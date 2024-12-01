@@ -119,6 +119,19 @@ namespace Server.Items
         private readonly Mobile _From;
         private readonly BookOfSkillTraining _Book;
 
+        private readonly SkillName[] _Skills = {
+            SkillName.Lockpicking,
+            SkillName.RemoveTrap,
+            SkillName.DetectHidden,
+            SkillName.Fishing,
+            SkillName.Hiding,
+            SkillName.Stealing,
+            SkillName.Stealth,
+            SkillName.AnimalTaming,
+            SkillName.AnimalLore,
+            SkillName.Veterinary
+        };
+
         public SkillTrainingGump(Mobile from, BookOfSkillTraining book) : base(25, 25)
         {
             _From = from;
@@ -133,35 +146,13 @@ namespace Server.Items
 
             AddLabel(75, 25, 88, "What do you want to study?");
 
-            AddButton(75, 50, 4005, 4007, 1, GumpButtonType.Reply, 0);
-            AddLabel(125, 50, 88, "Lockpicking");
-
-            AddButton(75, 75, 4005, 4007, 2, GumpButtonType.Reply, 0);
-            AddLabel(125, 75, 88, "RemoveTrap");
-
-            AddButton(75, 100, 4005, 4007, 3, GumpButtonType.Reply, 0);
-            AddLabel(125, 100, 88, "DetectHidden");
-
-            AddButton(75, 125, 4005, 4007, 4, GumpButtonType.Reply, 0);
-            AddLabel(125, 125, 88, "Fishing");
-
-            AddButton(75, 150, 4005, 4007, 5, GumpButtonType.Reply, 0);
-            AddLabel(125, 150, 88, "Hiding");
-
-            AddButton(275, 50, 4005, 4007, 6, GumpButtonType.Reply, 0);
-            AddLabel(325, 50, 88, "Stealing");
-
-            AddButton(275, 75, 4005, 4007, 7, GumpButtonType.Reply, 0);
-            AddLabel(325, 75, 88, "Stealth");
-
-            AddButton(275, 100, 4005, 4007, 8, GumpButtonType.Reply, 0);
-            AddLabel(325, 100, 88, "AnimalTaming");
-
-            AddButton(275, 125, 4005, 4007, 9, GumpButtonType.Reply, 0);
-            AddLabel(325, 125, 88, "AnimalLore");
-
-            AddButton(275, 150, 4005, 4007, 10, GumpButtonType.Reply, 0);
-            AddLabel(325, 150, 88, "Veterinary");
+            for (int skillId = 0; skillId < _Skills.Length; skillId++)
+            {
+                int xDelta = 200 * (skillId / 5);
+                int yDelta = 25 * (skillId % 5);
+                AddButton(75 + xDelta, 50 + yDelta, 4005, 4007, skillId, GumpButtonType.Reply, 0);
+                AddLabel(125 + xDelta, 50 + yDelta, 88, _Skills[skillId].ToString());
+            }
         }
 
         public override void OnResponse(NetState state, RelayInfo info)
@@ -169,7 +160,7 @@ namespace Server.Items
             if (_Book.Deleted)
                 return;
 
-            if (info.ButtonID == 1)
+            if (info.ButtonID == 0)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
@@ -198,7 +189,7 @@ namespace Server.Items
                     }
                 }
             }
-            else if (info.ButtonID == 2)
+            else if (info.ButtonID == 1)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
@@ -227,7 +218,7 @@ namespace Server.Items
                     }
                 }
             }
-            else if (info.ButtonID == 3)
+            else if (info.ButtonID == 2)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
@@ -256,7 +247,7 @@ namespace Server.Items
                     }
                 }
             }
-            else if (info.ButtonID == 4)
+            else if (info.ButtonID == 3)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
@@ -284,7 +275,7 @@ namespace Server.Items
                     }
                 }
             }
-            else if (info.ButtonID == 5)
+            else if (info.ButtonID == 4)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
@@ -311,7 +302,7 @@ namespace Server.Items
                     }
                 }
             }
-            else if (info.ButtonID == 6)
+            else if (info.ButtonID == 5)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
@@ -339,7 +330,7 @@ namespace Server.Items
                     }
                 }
             }
-            else if (info.ButtonID == 7)
+            else if (info.ButtonID == 6)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
@@ -367,7 +358,7 @@ namespace Server.Items
                     }
                 }
             }
-            else if (info.ButtonID == 8)
+            else if (info.ButtonID == 7)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
@@ -396,7 +387,7 @@ namespace Server.Items
                     }
                 }
             }
-            else if (info.ButtonID == 9)
+            else if (info.ButtonID == 8)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
@@ -425,7 +416,7 @@ namespace Server.Items
                     }
                 }
             }
-            else if (info.ButtonID == 10)
+            else if (info.ButtonID == 9)
             {
                 if (!_From.InRange(_Book.GetWorldLocation(), 2))
                 {
