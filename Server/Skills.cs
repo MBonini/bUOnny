@@ -347,8 +347,8 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
-		public double Cap 
-        { 
+		public double Cap
+        {
             get { return (m_Cap / 10.0); }
             set
             {
@@ -449,17 +449,7 @@ namespace Server
 					}
 				}
 
-				value += bonusNotObey;
-
-				if (value < Cap)
-				{
-					value += bonusObey;
-
-					if (value > Cap)
-					{
-						value = Cap;
-					}
-				}
+				value += bonusNotObey + bonusObey;
 
 				m_Owner.Owner.MutateSkill((SkillName)m_Info.SkillID, ref value);
 
@@ -535,7 +525,7 @@ namespace Server
 			double intGain,
 			double gainFactor,
 			StatCode primary,
-            StatCode secondary, 
+            StatCode secondary,
             bool mastery = false,
             bool usewhilecasting = false)
 		{
