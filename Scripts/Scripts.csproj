@@ -76,6 +76,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bonny\BagOfHolding.cs" />
+    <Compile Include="Bonny\BookOfSkillTraining.cs" />
     <Compile Include="Bonny\Deeds\DeedOfArmorMeditable.cs" />
     <Compile Include="Bonny\Deeds\DeedOfRepair.cs" />
     <Compile Include="Bonny\Deeds\DeedOfSpellChanneling.cs" />
