@@ -1,3 +1,7 @@
+/*
+ * Inspired by Ashlar, beloved of Morrigan
+ */
+
 #region References
 
 using System;
@@ -10,8 +14,6 @@ namespace Server.Items
 {
     public sealed class BookOfSkillTraining : Item
     {
-        private StudyTimer _StudyTimer;
-
         private int _StudyTime;
         private int _Ouch;
 
@@ -119,18 +121,9 @@ namespace Server.Items
         private readonly Mobile _From;
         private readonly BookOfSkillTraining _Book;
 
-        private readonly SkillName[] _Skills = {
-            SkillName.Lockpicking,
-            SkillName.RemoveTrap,
-            SkillName.DetectHidden,
-            SkillName.Fishing,
-            SkillName.Hiding,
-            SkillName.Stealing,
-            SkillName.Stealth,
-            SkillName.AnimalTaming,
-            SkillName.AnimalLore,
-            SkillName.Veterinary
-        };
+        private readonly SkillName[] _Skills = Enum.GetValues(typeof(SkillName)) as SkillName[];
+
+        private readonly int _NRows = 15;
 
         public SkillTrainingGump(Mobile from, BookOfSkillTraining book) : base(25, 25)
         {
@@ -140,18 +133,20 @@ namespace Server.Items
 
             AddPage(0);
 
-            AddBackground(50, 10, 425, 174, 5054);
-            AddImageTiled(58, 20, 408, 155, 2624);
-            AddAlphaRegion(58, 20, 408, 155);
+            int gumpWidth = 50 + 200 * 4;
+            int gumpHeight = 50 + 25 * (_NRows - 1) + 50;
+            AddBackground(0, 0, gumpWidth, gumpHeight, 5054);
+            AddImageTiled(10, 10, gumpWidth - 10 * 2, gumpHeight - 10 * 2, 2624);
+            AddAlphaRegion(10, 10, gumpWidth - 10 * 2, gumpHeight - 10 * 2);
 
             AddLabel(75, 25, 88, "What do you want to study?");
 
             for (int skillId = 0; skillId < _Skills.Length; skillId++)
             {
-                int xDelta = 200 * (skillId / 5);
-                int yDelta = 25 * (skillId % 5);
-                AddButton(75 + xDelta, 50 + yDelta, 4005, 4007, skillId + 1, GumpButtonType.Reply, 0);
-                AddLabel(125 + xDelta, 50 + yDelta, 88, _Skills[skillId].ToString());
+                int xDelta = 200 * (skillId / _NRows);
+                int yDelta = 25 * (skillId % _NRows);
+                AddButton(50 + xDelta, 50 + yDelta, 4005, 4007, skillId + 1, GumpButtonType.Reply, 0);
+                AddLabel(100 + xDelta, 50 + yDelta, 88, _Skills[skillId].ToString());
             }
         }
 
