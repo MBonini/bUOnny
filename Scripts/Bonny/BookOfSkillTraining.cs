@@ -105,7 +105,7 @@ namespace Server.Items
             UseBook(from);
         }
 
-        private void UseBook(Mobile from)
+        public void UseBook(Mobile from)
         {
             if (!Studying)
                 from.SendGump(new SkillTrainingGump(from, this));
@@ -150,7 +150,7 @@ namespace Server.Items
             {
                 int xDelta = 200 * (skillId / 5);
                 int yDelta = 25 * (skillId % 5);
-                AddButton(75 + xDelta, 50 + yDelta, 4005, 4007, skillId, GumpButtonType.Reply, 0);
+                AddButton(75 + xDelta, 50 + yDelta, 4005, 4007, skillId + 1, GumpButtonType.Reply, 0);
                 AddLabel(125 + xDelta, 50 + yDelta, 88, _Skills[skillId].ToString());
             }
         }
@@ -160,37 +160,47 @@ namespace Server.Items
             if (_Book.Deleted)
                 return;
 
+            if (info.ButtonID < 1 || info.ButtonID > _Skills.Length)
+            {
+                return;
+            }
+            SkillName requestedSkillName = _Skills[info.ButtonID - 1];
+
             if (!_From.InRange(_Book.GetWorldLocation(), 2))
             {
-                _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
+                _From.SendMessage(38, "Your eyes are not quite up to the challenge, get a little closer.");
+                _Book.UseBook(_From);
                 return;
             }
 
             if (_From.Hits <= _Book.Ouch)
             {
-                _From.SendMessage("You are too weak!");
+                _From.SendMessage(38, "You are too weak to study...");
+                _Book.UseBook(_From);
                 return;
             }
 
-            if (info.ButtonID < 0 || info.ButtonID >= _Skills.Length)
-            {
-                return;
-            }
-            SkillName requestedSkillName = _Skills[info.ButtonID];
-
-            new StudyTimer(_From, _Book).Start();
             if (_From.Skills[requestedSkillName].Base >= _Book.MaxSkill)
             {
-                _From.SendMessage( "You have mastered all that these books have to teach regarding {0}", requestedSkillName.ToString());
+                _From.SendMessage( 38, "You have mastered all that these books have to teach regarding {0}.", requestedSkillName.ToString());
+                _Book.UseBook(_From);
                 return;
             }
 
-            _From.SendMessage( "You turn to the {0} section of the books and study for a while.", requestedSkillName.ToString());
+            if (_From.Skills[requestedSkillName].Base >= _From.Skills[requestedSkillName].Cap)
+            {
+                _From.SendMessage( 38, "You turn to the {0} section of the books and study for a while, but you have reached already your limits in this skill.", requestedSkillName.ToString());
+                _Book.UseBook(_From);
+                return;
+            }
+
+            _From.SendMessage( 70, "You turn to the {0} section of the books and study for a while.", requestedSkillName.ToString());
             _From.CheckSkill(requestedSkillName, _Book.MinSkill, _Book.MaxSkill);
-            _From.Hits = (_From.Hits - _Book.Ouch);
-            _From.Stam = (_From.Stam - _Book.Ouch);
-            _From.Mana = (_From.Mana - _Book.Ouch);
+            _From.Hits -= _Book.Ouch;
+            _From.Stam -= _Book.Ouch;
+            _From.Mana -= _Book.Ouch;
             _Book.Studying = true;
+            new StudyTimer(_From, _Book).Start();
         }
     }
 
@@ -208,7 +218,7 @@ namespace Server.Items
         protected override void OnTick()
         {
             _Book.Studying = false;
-            _From.SendGump(new SkillTrainingGump(_From, _Book));
+            _Book.UseBook(_From);
         }
     }
 }
