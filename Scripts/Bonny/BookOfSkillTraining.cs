@@ -160,290 +160,37 @@ namespace Server.Items
             if (_Book.Deleted)
                 return;
 
-            if (info.ButtonID == 0)
+            if (!_From.InRange(_Book.GetWorldLocation(), 2))
             {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.Lockpicking.Base >= _Book.MaxSkill)
-                            _From.SendMessage(
-                                "You have mastered all that these books have to teach regarding Lockpicking");
-                        else
-                            _From.SendMessage(
-                                "You turn to the Lockpicking section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.Lockpicking, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
+                _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
+                return;
             }
-            else if (info.ButtonID == 1)
+
+            if (_From.Hits <= _Book.Ouch)
             {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.RemoveTrap.Base >= _Book.MaxSkill)
-                            _From.SendMessage(
-                                "You have mastered all that these books have to teach regarding Remove Trap.");
-                        else
-                            _From.SendMessage(
-                                "You turn to the Remove Trap section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.RemoveTrap, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
+                _From.SendMessage("You are too weak!");
+                return;
             }
-            else if (info.ButtonID == 2)
+
+            if (info.ButtonID < 0 || info.ButtonID >= _Skills.Length)
             {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.DetectHidden.Base >= _Book.MaxSkill)
-                            _From.SendMessage(
-                                "You have mastered all that these books have to teach regarding Detect Hidden.");
-                        else
-                            _From.SendMessage(
-                                "You turn to the Detect Hidden section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.DetectHidden, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
+                return;
             }
-            else if (info.ButtonID == 3)
+            SkillName requestedSkillName = _Skills[info.ButtonID];
+
+            new StudyTimer(_From, _Book).Start();
+            if (_From.Skills[requestedSkillName].Base >= _Book.MaxSkill)
             {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.Fishing.Base >= _Book.MaxSkill)
-                            _From.SendMessage(
-                                "You have mastered all that these books have to teach regarding Fishing.");
-                        else
-                            _From.SendMessage("You turn to the Fishing section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.Fishing, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
+                _From.SendMessage( "You have mastered all that these books have to teach regarding {0}", requestedSkillName.ToString());
+                return;
             }
-            else if (info.ButtonID == 4)
-            {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.Hiding.Base >= _Book.MaxSkill)
-                            _From.SendMessage("You have mastered all that these books have to teach regarding Hiding.");
-                        else
-                            _From.SendMessage("You turn to the Hiding section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.Hiding, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
-            }
-            else if (info.ButtonID == 5)
-            {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.Stealing.Base >= _Book.MaxSkill)
-                            _From.SendMessage(
-                                "You have mastered all that these books have to teach regarding Stealing.");
-                        else
-                            _From.SendMessage("You turn to the Stealing section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.Stealing, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
-            }
-            else if (info.ButtonID == 6)
-            {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.Stealth.Base >= _Book.MaxSkill)
-                            _From.SendMessage(
-                                "You have mastered all that these books have to teach regarding Stealth.");
-                        else
-                            _From.SendMessage("You turn to the Stealth section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.Stealth, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
-            }
-            else if (info.ButtonID == 7)
-            {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.AnimalTaming.Base >= _Book.MaxSkill)
-                            _From.SendMessage(
-                                "You have mastered all that these books have to teach regarding Animal Taming.");
-                        else
-                            _From.SendMessage(
-                                "You turn to the Animal Taming section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.AnimalTaming, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
-            }
-            else if (info.ButtonID == 8)
-            {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.AnimalLore.Base >= _Book.MaxSkill)
-                            _From.SendMessage(
-                                "You have mastered all that these books have to teach regarding Animal Lore.");
-                        else
-                            _From.SendMessage(
-                                "You turn to the Animal Lore section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.AnimalLore, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
-            }
-            else if (info.ButtonID == 9)
-            {
-                if (!_From.InRange(_Book.GetWorldLocation(), 2))
-                {
-                    _From.SendMessage("Your eyes are not quite up to the challenge, get a little closer.");
-                }
-                else
-                {
-                    if (_From.Hits <= _Book.Ouch)
-                    {
-                        _From.SendMessage("You are too weak!");
-                    }
-                    else
-                    {
-                        new StudyTimer(_From, _Book).Start();
-                        if (_From.Skills.Veterinary.Base >= _Book.MaxSkill)
-                            _From.SendMessage(
-                                "You have mastered all that these books have to teach regarding Veterinary.");
-                        else
-                            _From.SendMessage("You turn to the Veterinary section of the books and study for a while.");
-                        _From.CheckSkill(SkillName.Veterinary, _Book.MinSkill, _Book.MaxSkill);
-                        _From.Hits = (_From.Hits - _Book.Ouch);
-                        _From.Stam = (_From.Stam - _Book.Ouch);
-                        _From.Mana = (_From.Mana - _Book.Ouch);
-                        _Book.Studying = true;
-                    }
-                }
-            }
+
+            _From.SendMessage( "You turn to the {0} section of the books and study for a while.", requestedSkillName.ToString());
+            _From.CheckSkill(requestedSkillName, _Book.MinSkill, _Book.MaxSkill);
+            _From.Hits = (_From.Hits - _Book.Ouch);
+            _From.Stam = (_From.Stam - _Book.Ouch);
+            _From.Mana = (_From.Mana - _Book.Ouch);
+            _Book.Studying = true;
         }
     }
 
