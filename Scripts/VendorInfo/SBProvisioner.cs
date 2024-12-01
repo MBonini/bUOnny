@@ -33,7 +33,7 @@ namespace Server.Mobiles
         {
             public InternalBuyInfo()
             {
-                Add(new GenericBuyInfo(typeof(BookOfSkillTraining), 1, 20, 0x1E25, 0x03E9));
+                Add(new GenericBuyInfo(typeof(BookOfSkillTraining), 1000, 20, 0x1E25, 0x03E9));
 
                 Add(new GenericBuyInfo("1060834", typeof(Engines.Plants.PlantBowl), 2, 20, 0x15FD, 0));
 
