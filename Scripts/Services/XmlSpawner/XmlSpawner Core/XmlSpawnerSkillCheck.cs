@@ -48,13 +48,13 @@ namespace Server.Mobiles
 
             // call the default skillcheck handler
             bool success = SkillCheck.Mobile_SkillCheckDirectLocation(  from,  skillName,  chance );
-            
+
             // call the xmlspawner skillcheck handler
 			CheckSkillUse(from, skill, success);
 
 			return success;
 		}
-		
+
 		public static bool Mobile_SkillCheckTarget( Mobile from, SkillName skillName, object target, double minSkill, double maxSkill )
 		{
 			Skill skill = from.Skills[skillName];
@@ -80,19 +80,31 @@ namespace Server.Mobiles
 
             // call the default skillcheck handler
             bool success = SkillCheck.Mobile_SkillCheckDirectTarget(  from,  skillName,  target,  chance );
-            
+
             // call the xmlspawner skillcheck handler
             CheckSkillUse(from, skill, success);
 
 			return success;
 		}
 
+        public static bool Mobile_SkillGain(Mobile from, SkillName skillName)
+        {
+            Skill skill = from.Skills[skillName];
+
+            if (skill == null)
+                return false;
+
+            SkillCheck.Gain(from, skill);
+
+            return true;
+        }
+
 
 		public class RegisteredSkill
         {
             public const int MaxSkills = 52;
             public const SkillName Invalid = (SkillName)(-1);
-            
+
             public object  target;
             public SkillName   sid;
 
@@ -138,7 +150,7 @@ namespace Server.Mobiles
                     return maplist[(int)index];
                 }
                 else
-                // otherwise pull it out of the final slot for unknown skills.  I dont know of a condition that would lead to 
+                // otherwise pull it out of the final slot for unknown skills.  I dont know of a condition that would lead to
                 // additional skills being registered but it will support them if they are
                 {
                     if(maplist[MaxSkills] == null)
@@ -146,7 +158,7 @@ namespace Server.Mobiles
 
                     return maplist[MaxSkills];
                 }
-    
+
             }
         }
 
@@ -156,7 +168,7 @@ namespace Server.Mobiles
 
             // go through the list and if the spawner is not on it yet, then add it
             bool found = false;
-            
+
             ArrayList skilllist = RegisteredSkill.TriggerList(s, map);
 
             if(skilllist == null) return;
@@ -182,7 +194,7 @@ namespace Server.Mobiles
 
             }
         }
-        
+
         public static void UnRegisterSkillTrigger( object o, SkillName s, Map map, bool all)
         {
             if(o == null || s == RegisteredSkill.Invalid) return;
@@ -193,7 +205,7 @@ namespace Server.Mobiles
                 for(int i = 0;i<RegisteredSkill.MaxSkills+1;i++)
                 {
                     ArrayList skilllist = RegisteredSkill.TriggerList((SkillName)i, map);
-            
+
                     if(skilllist == null) return;
 
                     foreach(RegisteredSkill rs in skilllist)
@@ -203,13 +215,13 @@ namespace Server.Mobiles
                             skilllist.Remove(rs);
                             break;
                         }
-        
+
                     }
                 }
             } else
             {
                 ArrayList skilllist = RegisteredSkill.TriggerList(s, map);
-            
+
                 if(skilllist == null) return;
 
                 // if the all flag is not set then just remove the spawner from the list for the specified skill
@@ -220,7 +232,7 @@ namespace Server.Mobiles
                         skilllist.Remove(rs);
                         break;
                     }
-    
+
                 }
             }
         }
@@ -229,7 +241,7 @@ namespace Server.Mobiles
         public static void CheckSkillUse( Mobile m, Skill skill, bool success)
         {
             if(!(m is PlayerMobile) || skill == null) return;
-            
+
             /*
             // first check for any attachments that might support OnSkillUse
             ArrayList list = XmlAttach.FindAttachments(m);
@@ -259,7 +271,7 @@ namespace Server.Mobiles
                     if(rs.target is XmlSpawner)
                     {
                         XmlSpawner spawner = (XmlSpawner)rs.target;
-    
+
                         if ( spawner.HandlesOnSkillUse )
                         {
                             // call the spawner handler

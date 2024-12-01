@@ -40,21 +40,18 @@ namespace Server.Items
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public double MinSkill { get; set; }
-
-        [CommandProperty(AccessLevel.GameMaster)]
         public double MaxSkill { get; set; }
 
         [CommandProperty(AccessLevel.GameMaster)]
         public bool Studying { get; set; }
 
         [Constructable]
-        public BookOfSkillTraining() : this(3, 5, -50.0, 1000.0, false)
+        public BookOfSkillTraining() : this(3, 5, 1000.0, false)
         {
         }
 
         [Constructable]
-        public BookOfSkillTraining(int studyTime, int ouch, double minSkill, double maxSkill, bool studying) :
+        public BookOfSkillTraining(int studyTime, int ouch, double maxSkill, bool studying) :
             base(0x1E25)
         {
             Name = "Books of skill training";
@@ -65,7 +62,6 @@ namespace Server.Items
 
             StudyTime = studyTime;
             Ouch = ouch;
-            MinSkill = minSkill;
             MaxSkill = maxSkill;
             Studying = studying;
         }
@@ -82,7 +78,6 @@ namespace Server.Items
             writer.Write((int)_StudyTime);
             writer.Write((int)_Ouch);
 
-            writer.Write(MinSkill);
             writer.Write(MaxSkill);
 
             writer.Write((bool)Studying);
@@ -96,7 +91,6 @@ namespace Server.Items
             _StudyTime = reader.ReadInt();
             _Ouch = reader.ReadInt();
 
-            MinSkill = reader.ReadDouble();
             MaxSkill = reader.ReadDouble();
 
             Studying = reader.ReadBool();
@@ -190,7 +184,7 @@ namespace Server.Items
             }
 
             _From.SendMessage( 70, "You turn to the {0} section of the books and study for a while.", requestedSkillName.ToString());
-            _From.CheckSkill(requestedSkillName, _Book.MinSkill, _Book.MaxSkill);
+            _From.SkillGain(requestedSkillName);
             _From.Hits -= _Book.Ouch;
             _From.Stam -= _Book.Ouch;
             _From.Mana -= _Book.Ouch;
