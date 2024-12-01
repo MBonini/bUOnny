@@ -33,10 +33,12 @@ namespace Server.Mobiles
         {
             public InternalBuyInfo()
             {
+                Add(new GenericBuyInfo(typeof(BookOfSkillTraining), 1000, 20, 0x1E25, 0x03E9));
+
                 Add(new GenericBuyInfo("1060834", typeof(Engines.Plants.PlantBowl), 2, 20, 0x15FD, 0));
 
-                Add(new GenericBuyInfo(typeof(Arrow), 2, 20, 0xF3F, 0, true));
-                Add(new GenericBuyInfo(typeof(Bolt), 5, 20, 0x1BFB, 0, true));
+                Add(new GenericBuyInfo(typeof(Arrow), 2, 999, 0xF3F, 0, true));
+                Add(new GenericBuyInfo(typeof(Bolt), 5, 999, 0x1BFB, 0, true));
 
                 Add(new GenericBuyInfo(typeof(Backpack), 15, 20, 0x9B2, 0));
                 Add(new GenericBuyInfo(typeof(Pouch), 6, 20, 0xE79, 0));
@@ -81,7 +83,7 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(Garlic), 3, 20, 0xF84, 0));
                 Add(new GenericBuyInfo(typeof(Ginseng), 3, 20, 0xF85, 0));
 
-                Add(new GenericBuyInfo(typeof(Bottle), 5, 20, 0xF0E, 0, true));
+                Add(new GenericBuyInfo(typeof(Bottle), 5, 999, 0xF0E, 0, true));
 
                 Add(new GenericBuyInfo(typeof(RedBook), 15, 20, 0xFF1, 0));
                 Add(new GenericBuyInfo(typeof(BlueBook), 15, 20, 0xFF2, 0));
@@ -113,8 +115,7 @@ namespace Server.Mobiles
                 if (!Guild.NewGuildSystem)
                     Add(new GenericBuyInfo("1041055", typeof(GuildDeed), 12450, 20, 0x14F0, 0));
 
-                if (Core.ML)
-                    Add(new GenericBuyInfo("1079931", typeof(SalvageBag), 1255, 20, 0xE76, Utility.RandomBlueHue()));
+                Add(new GenericBuyInfo("1079931", typeof(SalvageBag), 1000, 20, 0xE76, Utility.RandomBlueHue()));
 
                 if (Core.SA)
                     Add(new GenericBuyInfo("1114770", typeof(SkinTingeingTincture), 1255, 20, 0xEFF, 90));
