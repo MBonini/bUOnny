@@ -55,14 +55,14 @@ namespace Server.Multis
 		public int Charges
 		{
 			get { return _Charges; }
-			set 
+			set
             {
                 _Charges = value;
 
                 HueChange();
 
                 InvalidateProperties();
-            } 
+            }
 		}
 
         public void HueChange()
@@ -195,7 +195,7 @@ namespace Server.Multis
                 {
                     list.Add(new RechargeEntry(from, this));
                     list.Add(new ChangeTypeEntry(from, this));
-                }                
+                }
             }
 
             base.GetContextMenuEntries(from, list);
@@ -379,11 +379,6 @@ namespace Server.Multis
                 from.SendLocalizedMessage(1005564, "", 0x22); // Wouldst thou flee during the heat of battle??
                 return false;
             }
-            else if (destMap == Map.Felucca && from is PlayerMobile && ((PlayerMobile)from).Young)
-            {
-                from.SendLocalizedMessage(1049543); // You decide against traveling to Felucca while you are still young.
-                return false;
-            }
             else if (SpellHelper.RestrictRedTravel && from.Murderer && destMap.Rules != MapRules.FeluccaRules && !Siege.SiegeShard)
             {
                 from.SendLocalizedMessage(1019004); // You are not allowed to travel there.
@@ -407,7 +402,7 @@ namespace Server.Multis
 
             return true;
         }
-		
+
 		public override void OnDoubleClick(Mobile m)
 		{
 			if(IsChildOf(m.Backpack))
@@ -418,7 +413,7 @@ namespace Server.Multis
 					if(targeted is HouseTeleporterTile)
 					{
 						var tile = targeted as HouseTeleporterTile;
-						
+
 						if(tile.IsChildOf(m.Backpack))
 						{
 							tile.Link = this;
@@ -532,25 +527,25 @@ namespace Server.Multis
                 }
             }
         }
-		
+
 		public HouseTeleporterTile(Serial serial) : base(serial)
 		{
 		}
-		
+
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
 			writer.Write(0);
-			
+
 			writer.Write(_Charges);
             writer.Write(UsesCharges);
 		}
-		
+
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
 			int version = reader.ReadInt();
-			
+
 			_Charges = reader.ReadInt();
             UsesCharges = reader.ReadBool();
 
@@ -648,13 +643,13 @@ namespace Server.Multis
             : base(serial)
 		{
 		}
-		
+
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
 			writer.Write(0);
 		}
-		
+
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
@@ -692,14 +687,14 @@ namespace Server.Multis
             : base(serial)
 		{
 		}
-		
+
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
 			writer.Write(0);
             writer.Write(VetReward);
 		}
-		
+
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
