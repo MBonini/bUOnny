@@ -87,19 +87,6 @@ namespace Server.Mobiles
 			return success;
 		}
 
-        public static bool Mobile_SkillGain(Mobile from, SkillName skillName)
-        {
-            Skill skill = from.Skills[skillName];
-
-            if (skill == null)
-                return false;
-
-            SkillCheck.Gain(from, skill);
-
-            return true;
-        }
-
-
 		public class RegisteredSkill
         {
             public const int MaxSkills = 52;

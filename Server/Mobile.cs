@@ -513,8 +513,6 @@ namespace Server
 
 	public delegate bool SkillCheckDirectLocationHandler(Mobile from, SkillName skill, double chance);
 
-    public delegate bool SkillGainHandler(Mobile from, SkillName skill);
-
 	public delegate TimeSpan RegenRateHandler(Mobile from);
 
 	public delegate bool AllowBeneficialHandler(Mobile from, Mobile target);
@@ -635,8 +633,6 @@ namespace Server
 		public static SkillCheckDirectTargetHandler SkillCheckDirectTargetHandler { get { return m_SkillCheckDirectTargetHandler; } set { m_SkillCheckDirectTargetHandler = value; } }
 
 		public static SkillCheckDirectLocationHandler SkillCheckDirectLocationHandler { get { return m_SkillCheckDirectLocationHandler; } set { m_SkillCheckDirectLocationHandler = value; } }
-
-        public static SkillGainHandler SkillGainHandler { get; set; }
 
         private static AOSStatusHandler m_AOSStatusHandler;
 
@@ -12662,16 +12658,6 @@ namespace Server
 				return m_SkillCheckDirectTargetHandler(this, skill, target, chance);
 			}
 		}
-
-        public bool SkillGain(SkillName skill)
-        {
-            if (SkillGainHandler == null)
-            {
-                return false;
-            }
-
-            return SkillGainHandler(this, skill);
-        }
 
 		public virtual void DisruptiveAction()
 		{

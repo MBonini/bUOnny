@@ -129,8 +129,6 @@ namespace Server.Misc
 
 			Mobile.SkillCheckTargetHandler = XmlSpawnerSkillCheck.Mobile_SkillCheckTarget;
 			Mobile.SkillCheckDirectTargetHandler = XmlSpawnerSkillCheck.Mobile_SkillCheckDirectTarget;
-
-            Mobile.SkillGainHandler = XmlSpawnerSkillCheck.Mobile_SkillGain;
         }
 
 		public static bool Mobile_SkillCheckLocation(Mobile from, SkillName skillName, double minSkill, double maxSkill)

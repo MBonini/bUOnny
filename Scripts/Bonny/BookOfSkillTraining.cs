@@ -6,6 +6,7 @@
 
 using System;
 using Server.Gumps;
+using Server.Misc;
 using Server.Network;
 
 #endregion
@@ -169,14 +170,15 @@ namespace Server.Items
                 return;
             }
 
-            if (_From.Skills[requestedSkillName].Base >= _Book.MaxSkill)
+            Skill requestedSkill = _From.Skills[requestedSkillName];
+            if (requestedSkill.Base >= _Book.MaxSkill)
             {
                 _From.SendMessage( 38, "You have mastered all that these books have to teach regarding {0}.", requestedSkillName.ToString());
                 _Book.UseBook(_From);
                 return;
             }
 
-            if (_From.Skills[requestedSkillName].Base >= _From.Skills[requestedSkillName].Cap)
+            if (requestedSkill.Base >= requestedSkill.Cap)
             {
                 _From.SendMessage( 38, "You turn to the {0} section of the books and study for a while, but you have reached already your limits in this skill.", requestedSkillName.ToString());
                 _Book.UseBook(_From);
@@ -184,7 +186,7 @@ namespace Server.Items
             }
 
             _From.SendMessage( 70, "You turn to the {0} section of the books and study for a while.", requestedSkillName.ToString());
-            _From.SkillGain(requestedSkillName);
+            SkillCheck.Gain(_From, requestedSkill);
             _From.Hits -= _Book.Ouch;
             _From.Stam -= _Book.Ouch;
             _From.Mana -= _Book.Ouch;
