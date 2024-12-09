@@ -1447,9 +1447,6 @@ namespace Server.Items
 
                 bonus += AosAttributes.GetValue(attacker, AosAttribute.AttackChance);
 
-                //SA Gargoyle cap is 50, else 45
-                bonus = Math.Min(attacker.Race == Race.Gargoyle ? 50 : 45, bonus);
-
                 ourValue = (atkValue + 20.0) * (100 + bonus);
 
                 bonus = AosAttributes.GetValue(defender, AosAttribute.DefendChance);
@@ -1458,12 +1455,6 @@ namespace Server.Items
 
                 if (info != null && info.Defender == defender)
                     bonus -= info.DefenseChanceMalus;
-
-                int max = 45 + BaseArmor.GetRefinedDefenseChance(defender);
-
-                // Defense Chance Increase = 45%
-                if (bonus > max)
-                    bonus = max;
 
                 theirValue = (defValue + 20.0) * (100 + bonus);
 

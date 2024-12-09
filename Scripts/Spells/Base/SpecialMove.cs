@@ -146,8 +146,8 @@ namespace Server.Spells
                 scalar += .5;
             }
 
-            // Lower Mana Cost = 40%
-            int lmc = Math.Min(AosAttributes.GetValue(m, AosAttribute.LowerManaCost), 40);
+            // Lower Mana Cost = 95%
+            int lmc = Math.Min(AosAttributes.GetValue(m, AosAttribute.LowerManaCost), 95);
 
             lmc += BaseArmor.GetInherentLowerManaCost(m);
 

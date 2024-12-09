@@ -193,7 +193,7 @@ namespace Server
                 }
 
                 if (totalDamage < 1)
-                    totalDamage = 1;           
+                    totalDamage = 1;
             }
             else if (Core.ML && m is PlayerMobile)
             {
@@ -228,7 +228,7 @@ namespace Server
 
                 /* Per EA's UO Herald Pub48 (ML):
                 * ((resist spellsx10)/20 + 10=percentage of damage resisted)
-                * 
+                *
                 * Tested 12/29/2017-
                 * No cap, also, above forumula is only in effect vs. creatures
                 */
@@ -466,17 +466,17 @@ namespace Server
 				case 2: return from.GetMaxResistance( ResistanceType.Cold );
 				case 3: return from.GetMaxResistance( ResistanceType.Poison );
 				case 4: return from.GetMaxResistance( ResistanceType.Energy );
-                case 5: return Math.Min(45 + BaseArmor.GetRefinedDefenseChance(from), AosAttributes.GetValue(from, AosAttribute.DefendChance));
-                case 6: return 45 + BaseArmor.GetRefinedDefenseChance(from);
-                case 7: return Math.Min(from.Race == Race.Gargoyle ? 50 : 45, AosAttributes.GetValue(from, AosAttribute.AttackChance));
+                case 5: return AosAttributes.GetValue(from, AosAttribute.DefendChance);
+                case 6: return 0;
+                case 7: return AosAttributes.GetValue(from, AosAttribute.AttackChance);
                 case 8: return Math.Min(60, AosAttributes.GetValue(from, AosAttribute.WeaponSpeed));
-                case 9: return Math.Min(100, AosAttributes.GetValue(from, AosAttribute.WeaponDamage));
+                case 9: return AosAttributes.GetValue(from, AosAttribute.WeaponDamage);
                 case 10: return Math.Min(100, AosAttributes.GetValue(from, AosAttribute.LowerRegCost));
                 case 11: return AosAttributes.GetValue(from, AosAttribute.SpellDamage);
                 case 12: return Math.Min(6, AosAttributes.GetValue(from, AosAttribute.CastRecovery));
                 case 13: return Math.Min(4, AosAttributes.GetValue(from, AosAttribute.CastSpeed));
                 case 14: return Math.Min(95, AosAttributes.GetValue(from, AosAttribute.LowerManaCost)) + BaseArmor.GetInherentLowerManaCost(from);
-                
+
                 case 15: return (int)RegenRates.HitPointRegen(from); // HP   REGEN
                 case 16: return (int)RegenRates.StamRegen(from); // Stam REGEN
                 case 17: return (int)RegenRates.ManaRegen(from); // MANA REGEN
@@ -765,7 +765,7 @@ namespace Server
                     value -= 60;
 
                 if (DivineFurySpell.UnderEffect(m))
-                    value += DivineFurySpell.GetAttackBonus(m);                   
+                    value += DivineFurySpell.GetAttackBonus(m);
 
                 if (BaseWeapon.CheckAnimal(m, typeof(GreyWolf)) || BaseWeapon.CheckAnimal(m, typeof(BakeKitsune)))
                     value += 20; // attacker gets 20% bonus when under Wolf or Bake Kitsune form
@@ -2728,8 +2728,8 @@ namespace Server
         ResonancePoison = 0x00000100,
         ResonanceEnergy = 0x00000200,
         ResonanceKinetic = 0x00000400,
-        /*Soul Charge is wrong. 
-         * Do not use these types. 
+        /*Soul Charge is wrong.
+         * Do not use these types.
          * Use AosArmorAttribute type only.
          * Fill these in with any new attributes.*/
         SoulChargeFire = 0x00000800,

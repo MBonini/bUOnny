@@ -231,11 +231,6 @@ namespace Server.Items
 				attackValue -= 25;
 			}
 
-			if (attackValue > 45)
-			{
-				attackValue = 45;
-			}
-
 			attackValue = (atSkillValue + 20.0) * (100 + attackValue);
 
 			double defenseValue = AosAttributes.GetValue(defender, AosAttribute.DefendChance);
@@ -257,11 +252,6 @@ namespace Server.Items
 			if (SkillHandlers.Discordance.GetEffect(attacker, ref refBonus))
 			{
 				defenseValue -= refBonus;
-			}
-
-			if (defenseValue > 45)
-			{
-				defenseValue = 45;
 			}
 
 			defenseValue = (defSkillValue + 20.0) * (100 + defenseValue);

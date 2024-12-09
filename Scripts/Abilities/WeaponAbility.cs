@@ -130,15 +130,15 @@ namespace Server.Items
                 scalar += .5;
             }
 
-            // Lower Mana Cost = 40%
-            int lmc = Math.Min(AosAttributes.GetValue(from, AosAttribute.LowerManaCost), 40);
+            // Lower Mana Cost = 95%
+            int lmc = Math.Min(AosAttributes.GetValue(from, AosAttribute.LowerManaCost), 95);
 
             lmc += BaseArmor.GetInherentLowerManaCost(from);
 
             scalar -= (double)lmc / 100;
             mana = (int)(mana * scalar);
 
-            // Using a special move within 3 seconds of the previous special move costs double mana 
+            // Using a special move within 3 seconds of the previous special move costs double mana
             if (GetContext(from) != null)
                 mana *= 2;
 
@@ -199,7 +199,7 @@ namespace Server.Items
             switch (skill)
             {
                 default: return Core.TOL ? 1157351 : 1079308;
-                    // You need ~1_SKILL_REQUIREMENT~ weapon and tactics skill to perform that attack                                                             
+                    // You need ~1_SKILL_REQUIREMENT~ weapon and tactics skill to perform that attack
                     // You need ~1_SKILL_REQUIREMENT~ tactics skill to perform that attack
                 case SkillName.Bushido:
                 case SkillName.Ninjitsu: return 1063347;
