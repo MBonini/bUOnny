@@ -469,7 +469,7 @@ namespace Server
                 case 5: return AosAttributes.GetValue(from, AosAttribute.DefendChance);
                 case 6: return 0;
                 case 7: return AosAttributes.GetValue(from, AosAttribute.AttackChance);
-                case 8: return Math.Min(60, AosAttributes.GetValue(from, AosAttribute.WeaponSpeed));
+                case 8: return AosAttributes.GetValue(from, AosAttribute.WeaponSpeed);
                 case 9: return AosAttributes.GetValue(from, AosAttribute.WeaponDamage);
                 case 10: return Math.Min(100, AosAttributes.GetValue(from, AosAttribute.LowerRegCost));
                 case 11: return AosAttributes.GetValue(from, AosAttribute.SpellDamage);

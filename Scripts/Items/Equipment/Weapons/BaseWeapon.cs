@@ -1550,11 +1550,6 @@ namespace Server.Items
                 */
 				int bonus = AosAttributes.GetValue(m, AosAttribute.WeaponSpeed);
 
-				if (bonus > 60)
-				{
-					bonus = 60;
-				}
-
 				double ticks;
 
 				if (Core.ML)
@@ -1576,10 +1571,10 @@ namespace Server.Items
 					ticks = Math.Floor((80000.0 / ((m.Stam + 100) * speed)) - 2);
 				}
 
-				// Swing speed currently capped at one swing every 1.25 seconds (5 ticks).
-				if (ticks < 5)
+				// Swing speed currently capped at one swing every 0.75 seconds (3 ticks).
+				if (ticks < 3)
 				{
-					ticks = 5;
+					ticks = 3;
 				}
 
 				delayInSeconds = ticks * 0.25;
@@ -1600,10 +1595,10 @@ namespace Server.Items
 				delayInSeconds = Math.Floor(40000.0 / v) * 0.5;
 
 				// Maximum swing rate capped at one swing per second
-				// OSI dev said that it has and is supposed to be 1.25
-				if (delayInSeconds < 1.25)
+				// OSI dev said that it has and is supposed to be 0.75
+				if (delayInSeconds < 0.75)
 				{
-					delayInSeconds = 1.25;
+					delayInSeconds = 0.75;
 				}
 			}
 			else
