@@ -62,8 +62,8 @@ namespace Server.Spells
         // Right now, magic arrow and nether bolt are the only ones that have this functionality
 
 		public virtual bool DelayedDamageStacking { get { return true; } }
-		//In reality, it's ANY delayed Damage spell Post-AoS that can't stack, but, only 
-		//Expo & Magic Arrow have enough delay and a short enough cast time to bring up 
+		//In reality, it's ANY delayed Damage spell Post-AoS that can't stack, but, only
+		//Expo & Magic Arrow have enough delay and a short enough cast time to bring up
 		//the possibility of stacking 'em.  Note that a MA & an Explosion will stack, but
 		//of course, two MA's won't.
 
@@ -271,7 +271,7 @@ namespace Server.Spells
                 if (BaseFishPie.IsUnderEffects(m_Caster, FishPieEffect.CastFocus))
                     focus += 2;
 
-                if (focus > 12) 
+                if (focus > 12)
                     focus = 12;
 
                 focus += m_Caster.Skills[SkillName.Inscribe].Value >= 50 ? GetInscribeFixed(m_Caster) / 200 : 0;
@@ -705,16 +705,16 @@ namespace Server.Spells
 			}
 		}
 
-		public virtual bool BlockedByHorrificBeast 
-        { 
-            get 
+		public virtual bool BlockedByHorrificBeast
+        {
+            get
             {
                 if (TransformationSpellHelper.UnderTransformation(Caster, typeof(HorrificBeastSpell)) &&
                     SpellHelper.HasSpellFocus(Caster, CastSkill))
                     return false;
 
                 return true;
-            } 
+            }
         }
 
 		public virtual bool BlockedByAnimalForm { get { return false; } }
@@ -1026,11 +1026,11 @@ namespace Server.Spells
 
 		public virtual double CastDelayFastScalar { get { return 1; } }
 		public virtual double CastDelaySecondsPerTick { get { return 0.25; } }
-		public virtual TimeSpan CastDelayMinimum { get { return TimeSpan.FromSeconds(0.25); } }
+		public virtual TimeSpan CastDelayMinimum { get { return TimeSpan.FromSeconds(0); } }
 
 		public virtual TimeSpan GetCastDelay()
 		{
-            if (m_Scroll is SpellStone) 
+            if (m_Scroll is SpellStone)
             {
                 return TimeSpan.Zero;
             }
@@ -1040,28 +1040,12 @@ namespace Server.Spells
 				return Core.ML ? CastDelayBase : TimeSpan.Zero; // TODO: Should FC apply to wands?
 			}
 
-			// Faster casting cap of 2 (if not using the protection spell) 
-			// Faster casting cap of 0 (if using the protection spell) 
-			// Paladin spells are subject to a faster casting cap of 4 
-			// Paladins with magery of 70.0 or above are subject to a faster casting cap of 2 
-			int fcMax = 4;
-
-			if (CastSkill == SkillName.Magery || CastSkill == SkillName.Necromancy || CastSkill == SkillName.Mysticism ||
-                (CastSkill == SkillName.Chivalry && (m_Caster.Skills[SkillName.Magery].Value >= 70.0 || m_Caster.Skills[SkillName.Mysticism].Value >= 70.0)))
-			{
-				fcMax = 2;
-			}
-
 			int fc = AosAttributes.GetValue(m_Caster, AosAttribute.CastSpeed);
 
-			if (fc > fcMax)
-			{
-				fc = fcMax;
-			}
-
+            // Faster casting decrease by 2 if using the protection spell
             if (ProtectionSpell.Registry.ContainsKey(m_Caster) || EodonianPotion.IsUnderEffects(m_Caster, PotionEffect.Urali))
             {
-                fc = Math.Min(fcMax - 2, fc - 2);
+                fc -= 2;
             }
 
 			TimeSpan baseDelay = CastDelayBase;
@@ -1152,7 +1136,7 @@ namespace Server.Spells
                 {
                     m_Scroll.Consume();
                 }
-                
+
                 else if (m_Scroll is BaseWand)
 				{
 					((BaseWand)m_Scroll).ConsumeCharge(m_Caster);
