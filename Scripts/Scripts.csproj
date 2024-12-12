@@ -79,6 +79,7 @@
     <Compile Include="Bonny\BookOfSkillTraining.cs" />
     <Compile Include="Bonny\Deeds\DeedOfArmorMeditable.cs" />
     <Compile Include="Bonny\Deeds\DeedOfRepair.cs" />
+    <Compile Include="Bonny\Deeds\DeedOfSelfRepair.cs" />
     <Compile Include="Bonny\Deeds\DeedOfSpellChanneling.cs" />
     <Compile Include="Bonny\Deeds\DeedOfWeaponOneHand.cs" />
     <Compile Include="Bonny\LockpickingChest.cs" />

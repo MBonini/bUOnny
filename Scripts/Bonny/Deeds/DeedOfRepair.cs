@@ -63,7 +63,7 @@ namespace Server.Items
                 if (targeted is BaseArmor armor && armor.CanRepair)
                 {
                     armor.HitPoints += _RepairAmount;
-                    from.SendMessage(70, "You have repaired the armor {0}.", armor.Name);
+                    from.SendMessage(70, "You have repaired the armor.");
 
                     // Delete the deed after usage
                     _Deed.Delete();
@@ -73,7 +73,7 @@ namespace Server.Items
                 else if (targeted is BaseWeapon weapon && weapon.CanRepair)
                 {
                     weapon.HitPoints += _RepairAmount;
-                    from.SendMessage(70, "You have repaired the weapon {0}.", weapon.Name);
+                    from.SendMessage(70, "You have repaired the weapon.");
 
                     // Delete the deed after usage
                     _Deed.Delete();
@@ -83,7 +83,7 @@ namespace Server.Items
                 else if (targeted is BaseJewel jewel && jewel.CanRepair)
                 {
                     jewel.HitPoints += _RepairAmount;
-                    from.SendMessage(70, "You have repaired the jewel {0}.", jewel.Name);
+                    from.SendMessage(70, "You have repaired the jewel.");
 
                     // Delete the deed after usage
                     _Deed.Delete();
@@ -93,7 +93,7 @@ namespace Server.Items
                 else if (targeted is BaseClothing clothing && clothing.CanRepair)
                 {
                     clothing.HitPoints += _RepairAmount;
-                    from.SendMessage(70, "You have repaired the clothing {0}.", clothing.Name);
+                    from.SendMessage(70, "You have repaired the clothing.");
 
                     // Delete the deed after usage
                     _Deed.Delete();
@@ -103,11 +103,12 @@ namespace Server.Items
                 else if (targeted is BaseTalisman talisman && talisman.CanRepair)
                 {
                     talisman.HitPoints += _RepairAmount;
-                    from.SendMessage(70, "You have repaired the talisman {0}.", talisman.Name);
+                    from.SendMessage(70, "You have repaired the talisman.");
 
                     // Delete the deed after usage
                     _Deed.Delete();
                 }
+
                 // if item not of defined type
                 else
                 {

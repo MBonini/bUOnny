@@ -33,6 +33,7 @@ namespace Server.Mobiles
             {
                 Add(new GenericBuyInfo(typeof(DeedOfRepair), 50, 999, 0x14F0, 0x44E));
                 Add(new GenericBuyInfo(typeof(DeedOfArmorMeditable), 100, 999, 0x14F0, 0x04F2));
+                Add(new GenericBuyInfo(typeof(DeedOfSelfRepair), 100, 999, 0x14F0, 0x0455));
 
                 Add(new GenericBuyInfo(typeof(SewingKit), 3, 999, 0xF9D, 0));
                 Add(new GenericBuyInfo(typeof(Scissors), 11, 20, 0xF9F, 0));
