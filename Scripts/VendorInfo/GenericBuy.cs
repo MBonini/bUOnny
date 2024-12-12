@@ -81,7 +81,7 @@ namespace Server.Mobiles
             {
                 return false;
             }
-        }//return ( m_Args == null || m_Args.Length == 0 ); } 
+        }//return ( m_Args == null || m_Args.Length == 0 ); }
         public Type Type
         {
             get
@@ -147,56 +147,7 @@ namespace Server.Mobiles
         {
             get
             {
-                int ecoInc = 0;
-
-                if (EconomyItem)
-                {
-                    if (m_TotalBought >= BaseVendor.BuyItemChange)
-                    {
-                        ecoInc += m_TotalBought / BaseVendor.BuyItemChange;
-                    }
-
-                    if (m_TotalSold >= BaseVendor.SellItemChange)
-                    {
-                        ecoInc -= m_TotalSold / BaseVendor.SellItemChange;
-                    }
-                }
-
-                if (m_PriceScalar != 0)
-                {
-                    if (m_Price > 5000000)
-                    {
-                        long price = m_Price;
-
-                        price *= m_PriceScalar;
-                        price += 50;
-                        price /= 100;
-
-                        if (price > int.MaxValue)
-                            price = int.MaxValue;
-
-                        if (EconomyItem && (int)price + ecoInc < 2)
-                        {
-                            return 2;
-                        }
-
-                        return (int)price + ecoInc;
-                    }
-
-                    if (EconomyItem && (((m_Price * m_PriceScalar) + 50) / 100) + ecoInc < 2)
-                    {
-                        return 2;
-                    }
-
-                    return (((m_Price * m_PriceScalar) + 50) / 100) + ecoInc;
-                }
-
-                if (EconomyItem && m_Price + ecoInc < 2)
-                {
-                    return 2;
-                }
-
-                return m_Price + ecoInc;
+                return m_Price;
             }
             set
             {
