@@ -84,6 +84,7 @@
     <Compile Include="Bonny\Deeds\DeedOfWeaponOneHand.cs" />
     <Compile Include="Bonny\LockpickingChest.cs" />
     <Compile Include="Bonny\Utils.cs" />
+    <Compile Include="Bonny\WillimacTheSupportElf.cs" />
     <Compile Include="Commands\AccountGoldCheck.cs" />
     <Compile Include="Commands\Add.cs">
       <SubType>Code</SubType>
