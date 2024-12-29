@@ -1993,54 +1993,28 @@ namespace Server.Mobiles
 		#endregion
 
 		#region Stat Getters/Setters
+        private const int _StatMaxCap = 1000;
+
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override int Str
 		{
-			get
-			{
-				if (Core.ML && IsPlayer())
-				{
-                    var str = base.Str;
-
-                    return Math.Min(base.Str, StrMaxCap);
-				}
-
-				return base.Str;
-			}
-			set { base.Str = value; }
-		}
+			get => Math.Min(base.Str, _StatMaxCap);
+            set => base.Str = value;
+        }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override int Int
 		{
-			get
-			{
-				if (Core.ML && IsPlayer())
-				{
-					return Math.Min(base.Int, IntMaxCap);
-				}
-
-				return base.Int;
-			}
-			set { base.Int = value; }
-		}
+			get => Math.Min(base.Int, _StatMaxCap);
+            set => base.Int = value;
+        }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override int Dex
 		{
-			get
-			{
-				if (Core.ML && IsPlayer())
-				{
-                    var dex = base.Dex;
-
-                    return Math.Min(dex, DexMaxCap);
-				}
-
-				return base.Dex;
-			}
-			set { base.Dex = value; }
-		}
+			get => Math.Min(base.Dex, _StatMaxCap);
+            set => base.Dex = value;
+        }
 		#endregion
 
         public long NextPassiveDetectHidden { get; set; }

@@ -68,6 +68,7 @@ namespace Server.Items
                     case BaseArmor armor:
                         from.SendMessage(38, "This piece of armor is already meditable.");
                         break;
+                    // TODO BONNY: Add BaseClothing type -> ClothingAttributes.MageArmor = 1
                     default:
                         from.SendMessage(38, "Can only enhance pieces of Armor.");
                         break;
